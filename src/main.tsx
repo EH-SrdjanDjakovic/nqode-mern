@@ -4,8 +4,28 @@ import { Provider } from "react-redux"
 import App from "./App"
 import { store } from "./app/store"
 import "./index.css"
+// core styles are required for all packages
+import "@mantine/core/styles.css"
+import { MantineProvider } from "@mantine/core"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import HomePage from "./pages/Home"
 
 const container = document.getElementById("root")
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/product-details",
+    element: <div>product details page</div>,
+  },
+  {
+    path: "/cart-details",
+    element: <div>cart details page</div>,
+  },
+])
 
 if (container) {
   const root = createRoot(container)
@@ -13,7 +33,9 @@ if (container) {
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        <App />
+        <MantineProvider>
+          <RouterProvider router={router} />
+        </MantineProvider>
       </Provider>
     </React.StrictMode>,
   )
