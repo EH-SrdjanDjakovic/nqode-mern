@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { IProduct } from "../models/IProduct";
 import { Card, Image, Text, Badge, Button, Group, Rating } from "@mantine/core";
 
@@ -9,11 +10,7 @@ const Product = ({ productInfo }: IProductComponent) => {
   return (
     <Card shadow='sm' padding='lg' radius='md' withBorder>
       <Card.Section>
-        <Image
-          src='https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/images/bg-8.png'
-          height={160}
-          alt='Norway'
-        />
+        <Image src={productInfo.thumbnail} height={160} alt='Norway' />
       </Card.Section>
 
       <Group justify='space-between' mt='md' mb='xs'>
@@ -26,9 +23,12 @@ const Product = ({ productInfo }: IProductComponent) => {
       </Text>
 
       <Group justify='space-between' mt='md' mb='xs'>
-        <Button color='blue' mt='md' radius='md'>
-          Check details
-        </Button>
+        <Link to={`/product-details/${productInfo.id}`}>
+          <Button color='blue' mt='md' radius='md'>
+            Check details
+          </Button>
+        </Link>
+
         <Button color='green' mt='md' radius='md'>
           Add to cart
         </Button>
