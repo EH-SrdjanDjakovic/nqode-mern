@@ -19,7 +19,7 @@ const HomePage = () => {
     <Grid>
       {allProducts?.map((prod) => {
         return (
-          <Grid.Col span={4}>
+          <Grid.Col span={4} key={prod.id}>
             <Product productInfo={prod} />
           </Grid.Col>
         );

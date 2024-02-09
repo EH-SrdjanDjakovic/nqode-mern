@@ -5,6 +5,7 @@ import { Quotes } from "./features/quotes/Quotes";
 import { AppShell, Text, Group, Input, Image, Menu } from "@mantine/core";
 import { Link, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
+import CartInfo from "./components/CartInfo";
 
 const App = () => {
   return (
@@ -78,16 +79,7 @@ const App = () => {
             <Link to='/'>
               <IconHome size={24} color='white' />
             </Link>
-
-            <Menu shadow='md' width={200}>
-              <Menu.Target>
-                <IconShoppingCart size={24} color='white' />
-              </Menu.Target>
-              <Menu.Dropdown>
-                <Menu.Label>Application</Menu.Label>
-                <Menu.Item>Settings</Menu.Item>
-              </Menu.Dropdown>
-            </Menu>
+            <CartInfo></CartInfo>
             <Input placeholder='Search' leftSection={<IconSearch size={16} />} />
           </Group>
         </Group>
