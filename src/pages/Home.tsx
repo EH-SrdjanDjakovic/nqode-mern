@@ -1,6 +1,7 @@
 import { Grid } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { IProduct } from "../models/IProduct";
+import Product from "../components/Product";
 
 const HomePage = () => {
   const [allProducts, setAllProducts] = useState<Array<IProduct> | null>(null);
@@ -17,7 +18,11 @@ const HomePage = () => {
   return (
     <Grid>
       {allProducts?.map((prod) => {
-        return <Grid.Col span={4}>{prod.title}</Grid.Col>;
+        return (
+          <Grid.Col span={4}>
+            <Product productInfo={prod} />
+          </Grid.Col>
+        );
       })}
     </Grid>
   );
