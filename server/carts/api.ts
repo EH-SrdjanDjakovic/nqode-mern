@@ -1,4 +1,4 @@
-import { getCarts } from "./databaseHelpers";
+import { getCarts, updateCart } from "./databaseHelpers";
 import { Request, Response, Express } from "express";
 import { Firestore } from "firebase/firestore/lite";
 
@@ -11,6 +11,12 @@ function cartsApi(app: Express, db: Firestore) {
       .catch((e) => {
         res.send(`Error occured: ${e}`);
       });
+  });
+
+  app.put("/carts", (req, res) => {
+    console.log("request", req.body);
+    updateCart(db, req.body);
+    res.send("Got a POST request");
   });
 }
 

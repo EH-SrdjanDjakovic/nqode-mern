@@ -7,6 +7,29 @@ interface IProductComponent {
 }
 
 const Product = ({ productInfo }: IProductComponent) => {
+  const addToCart = () => {
+    console.log("dodavanje");
+    const quantity = 3;
+    const prod = {
+      id: productInfo.id,
+      title: productInfo.title,
+      price: productInfo.price,
+      quantity,
+      total: quantity * productInfo.price,
+      discountPercentage: productInfo.discountPercentage,
+      discountedPrice: 55,
+      thumbnail: productInfo.thumbnail,
+    };
+
+    fetch("http://localhost:5000/carts", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(prod),
+    });
+  };
+
   return (
     <Card shadow='sm' padding='lg' radius='md' withBorder>
       <Card.Section>
@@ -29,7 +52,7 @@ const Product = ({ productInfo }: IProductComponent) => {
           </Button>
         </Link>
 
-        <Button color='green' mt='md' radius='md'>
+        <Button color='green' mt='md' radius='md' onClick={() => addToCart()}>
           Add to cart
         </Button>
       </Group>

@@ -1,4 +1,4 @@
-import { collection, getDocs, getDoc, Firestore } from "firebase/firestore/lite";
+import { collection, getDocs, getDoc, doc, Firestore, updateDoc } from "firebase/firestore/lite";
 
 export async function getCarts(db: Firestore) {
   const cartsCol = collection(db, "carts");
@@ -17,4 +17,21 @@ export async function getCarts(db: Firestore) {
   cartsList.products = productData;
 
   return cartsList;
+}
+
+export async function updateCart(db: Firestore, newProduct: Array<any>) {
+  const docRef = doc(db, "carts", "hTja5esiLja3WLthV8HR");
+  const docSnapshot = await getDoc(docRef);
+  const currentCartData = docSnapshot.data();
+  const newSetOfProducts = currentCartData?.products;
+  newSetOfProducts.push(newProduct);
+
+  const newData = { products: newSetOfProducts };
+  updateDoc(docRef, newData)
+    .then(() => {
+      console.log("Document successfully updated!");
+    })
+    .catch((error) => {
+      console.error("Error updating document: ", error);
+    });
 }
