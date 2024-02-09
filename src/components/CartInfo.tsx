@@ -1,25 +1,31 @@
 import { useEffect, useState } from "react";
-import { Menu } from "@mantine/core";
+import { Badge, Group, Menu, Table } from "@mantine/core";
 import { IconShoppingCart } from "@tabler/icons-react";
+import { ICart } from "../models/ICart";
 
 const CartInfo = () => {
-  const [carts, setCarts] = useState<Array<any>>([]);
+  const [cart, setCart] = useState<ICart | null>(null);
 
-  async function getCarts(): Promise<void> {
+  async function getCart(): Promise<void> {
     const response = await fetch("http://localhost:5000/carts");
     const cartsFromServer = await response.json();
-    setCarts(cartsFromServer.carts);
+    setCart(cartsFromServer.carts);
   }
   useEffect(() => {
-    getCarts();
+    getCart();
   }, []);
-
-  console.log("carts", carts);
 
   return (
     <Menu shadow='md' width={200}>
       <Menu.Target>
-        <IconShoppingCart size={24} color='white' />
+        <Group>
+          <div className='badge-container' style={{ position: "relative" }}>
+            <IconShoppingCart size={24} color='white' />
+            <Badge size='xs' circle className='badge' style={{ position: "absolute", top: "-5px", right: "-5px" }}>
+              {cart?.products.length}
+            </Badge>
+          </div>
+        </Group>
       </Menu.Target>
       <Menu.Dropdown>
         <Menu.Label>Application</Menu.Label>
